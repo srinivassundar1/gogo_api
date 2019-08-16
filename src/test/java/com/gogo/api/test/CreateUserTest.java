@@ -19,6 +19,7 @@ import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.is;
 import static org.hamcrest.collection.IsCollectionWithSize.hasSize;
 
+
 public class CreateUserTest {
 
     private User getUserTestInput(final String fileName) {
@@ -42,8 +43,9 @@ public class CreateUserTest {
         return new Object[][] {{getUserTestInput(CREATE_USER)}};
     }
 
-    @Test(dataProvider="CreateUser")
+    @Test(dataProvider = "CreateUser", description = "Test Create User & check response code 200")
     public void testCreateUser(User user) throws GoApiTestException {
+        // generate random email to test create user
         user.setEmail("test_" + System.currentTimeMillis() + "@gmail.com");
         final String jsonResponse = getClient().createUser(user).getBody().prettyPrint();
 
@@ -65,7 +67,9 @@ public class CreateUserTest {
         }
     }
 
-    @Test(dataProvider="CreateUser", expectedExceptions = { GoApiTestException.class} )
+    @Test(dataProvider="CreateUser", description = "Create User with existing email & expect JSON response structure" +
+            "that will be sent for response 201 but returns different JSON structure",
+            expectedExceptions = { GoApiTestException.class} )
     public void testCreateUserEmailAlreadyTaken(User user) throws GoApiTestException {
         final String jsonResponse = getClient().createUser(user).getBody().prettyPrint();
 
@@ -76,7 +80,7 @@ public class CreateUserTest {
         }
     }
 
-    @Test(dataProvider="EmailAlreadyTaken")
+    @Test(dataProvider="EmailAlreadyTaken", description = "Validate meta code 422 inside response data")
     public void testEmailAlreadyTakenResponseStructure(User user) throws GoApiTestException {
         final String jsonResponse = getClient().createUser(user).getBody().prettyPrint();
         try {

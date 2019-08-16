@@ -10,7 +10,9 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.is;
 
+
 public class GetUserTest {
+
     @DataProvider(name="GetUser")
     public Object[][] getUserDataProvider() {
         com.gogo.api.pojo.created.Result result = new com.gogo.api.pojo.created.Result();
@@ -24,7 +26,7 @@ public class GetUserTest {
                 {{result}};
     }
 
-    @Test(dataProvider = "GetUser")
+    @Test(dataProvider = "GetUser", description = "Test Get User")
     public void testGetUser(com.gogo.api.pojo.created.Result expectedResult) throws GoApiTestException {
         final io.restassured.response.Response response = getClient().getUser(expectedResult.getId());
         assertThat(response.statusCode(), is(equalTo(200)));
@@ -39,7 +41,7 @@ public class GetUserTest {
         }
     }
 
-    @Test
+    @Test(description = "Test get user with invalid authorization token")
     public void testGetUserUnAuthorized() {
         assertThat(getClient(false).getUser("1671").statusCode(), is(equalTo(401)));
     }
