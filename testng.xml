@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="GoApiTestSuite">
+    <test verbose="2" name="CreateApiTest">
+        <classes>
+            <class name="com.gogo.api.test.CreateUserTest"/>
+        </classes>
+    </test>
+    <test verbose="2" name="GetUserTest">
+        <classes>
+            <class name="com.gogo.api.test.GetUserTest"/>
+        </classes>
+    </test>
+</suite>
